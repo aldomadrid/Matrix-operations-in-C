@@ -1,10 +1,3 @@
-/******************************************************************************
-
-Online C Compiler.
-Code, Compile, Run and Debug C program online.
-Write your code in this editor and press "Run" button to compile and execute it.
-
-*******************************************************************************/
 
 #include <stdio.h>
 
@@ -251,18 +244,30 @@ bool inverse(struct mat *m, struct mat *id) {
 		return true;
 	}
 	//create the identity matrix
-	createIdentity(id);
+	createIdentity(&id);
 	//look for any diagonal that is not a zero
-	impossible = alignDiagonals(m, id);
+	impossible = alignDiagonals(&m, &id);
 	//find the non-zeros by column and eliminate them
-	impossible = eliminateNonDiagonals(m, id);
+	impossible = eliminateNonDiagonals(&m, &id);
 	if(impossible)
 		return impossible;
 
 	//divide the identity and the original matrix
-	divideMat(m, id); 
+	divideMat(&m, &id); 
 	return impossible; 
 }
+
+void transpose(struct mat *m) {
+	double* arr = (double*)malloc(sizeof(double)*m->size);
+	for (int i = 0; i < m->rows; i++) {
+		for (int j = 0; j < m->size / m->rows; j++) {
+			arr[j*m->rows + i] = m->cell[i*m->rows + j];
+		}
+	}
+	m->cell = arr;
+}
+
+
 
 int main()
 {
@@ -304,5 +309,18 @@ int main()
 				printf("\n");
 		}
 	}
+
+    transpose(&m);
+
+	printf("\nThe transpose: \n");
+	for (int i = 0; i < rows; i++) {
+		for (int j = 0; j < size / rows; j++) {
+			printf("%+10.02f", m.cell[i*rows + j]);
+			if (j == 2)
+				printf("\n");
+		}
+	}
+
+
 	return 0;
 }
