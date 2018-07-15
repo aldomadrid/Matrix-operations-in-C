@@ -9,3 +9,8 @@ I need my system to perform the following matrix operations:
  1. Inverse
  2. Transpose
  3. Multiplication
+
+Reference
+
+A good explanation and example of Taylor Series Estimation is given in the following paper: 
+https://ieeexplore.ieee.org/document/4101619/
